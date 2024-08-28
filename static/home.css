@@ -1,7 +1,27 @@
- #ai-chats{
-    width: 60%;
-    min-width: 40%;
-    max-width: 80%;
-    height: 80%;
-    background-color: rgb(64, 188, 204);
+ #ai-characters{
+   width: 100%;
+   min-width: 40%;
+   max-width: 90%;
+   height: 80%;
+   min-height: 60%;
+   max-height: 100%;
+   margin-left: 5%;
+   margin-top: 5%;
+   border-radius: 5px;
+   background-color: rgb(209, 190, 19);
+   z-index: 1;
+ }
+
+ #top-options{
+   width: 100%;
+   min-width: 40%;
+   max-width: 90%;
+   height: 20%;
+   min-height: 10%;
+   max-height: 30%;
+   margin-left: 5%;
+   margin-top: 5%;
+   border-radius: 5px;
+   background-color: rgb(241, 32, 231);
+   z-index: 1;
  }

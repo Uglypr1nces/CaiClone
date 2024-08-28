@@ -10,16 +10,30 @@
     {% endblock %}
 </head>
 <body>
-    <div id="left-panel">
-        <div id="left-panel-top">
+    <div id="container"> <!-- Added container div -->
+        <div id="left-panel">
+            <div id="left-panel-top">
+                <h1>navigation</h1>
+                <h4>hide sidepanel</h4>
+                <h4>create character</h4>
+                <h4>go to homepage</h4>
+            </div>
 
+            <div id="left-panel-middle">
+                <h1>characters</h1>
+                <h4>chats with options</h4>
+                <h4>everything will be stored in database</h4>
+            </div>
+
+            <div id="left-panel-bottom">
+                <h1>account options</h1>
+            </div>
         </div>
-        <div id="left-panel-bottom">
+        <div id="main-content">
+            {% block main %}
 
+            {% endblock %}
         </div>
     </div>
-    {% block main %}
-
-    {% endblock%}
 </body>
 </html>
