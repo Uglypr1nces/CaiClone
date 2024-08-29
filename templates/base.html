@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/base/base.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/elements.css' %}">
+    <script src="{% static 'scripts/base.js' %}"></script>
     {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +15,13 @@
     <div id="container"> <!-- Added container div -->
         <div id="left-panel">
             <div id="left-panel-top">
-                <h1>navigation</h1>
-                <h4>hide sidepanel</h4>
-                <h4>create character</h4>
-                <h4>go to homepage</h4>
+                <div id="left-panel-top-hide">
+                </div>
+                <div id="left-panel-top-options">
+                    <button class="button-4" role="button" onclick="hidePanel()">
+                        Create
+                    </button>
+                </div>
             </div>
 
             <div id="left-panel-middle">
