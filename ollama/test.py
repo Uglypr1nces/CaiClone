@@ -1,8 +1,11 @@
-import asyncio
-from ollama import AsyncClient
+import ollama
 
-async def chat():
-  message = {'role': 'user', 'content': 'Why is the sky blue?'}
-  response = await AsyncClient().chat(model='llama3.1', messages=[message])
+ollama.pull('llama3.1')
 
-asyncio.run(chat())
+response = ollama.chat(model='llama3.1', messages=[
+  {
+    'role': 'user',
+    'content': 'Why is the sky blue?',
+  },
+])
+print(response['message']['content'])

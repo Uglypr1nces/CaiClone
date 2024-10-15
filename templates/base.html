@@ -1,46 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'styles/base/base.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/elements.css' %}">
+  <head>
+    <link rel="stylesheet" href="{% static 'styles/base/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/elements.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'scripts/base.js' %}"></script>
+
     {% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> CAI clone</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAI clone</title>
     {% endblock %}
-</head>
-<body>
-    <div id="container"> <!-- Added container div -->
-        <div id="left-panel">
-            <div id="left-panel-top">
-                <div id="left-panel-top-hide">
-                    <p>thing.ai</p>
-                    <button id="hide-panel" onclick="hidePanel()"><</button>
-                </div>
-                <div id="left-panel-top-options">
-                    <button class="button-4" role="button">
-                        Create
-                    </button>
-                </div>
-            </div>
-
-            <div id="left-panel-middle">
-                <h1>characters</h1>
-                <h4>chats with options</h4>
-                <h4>everything will be stored in database</h4>
-            </div>
-
-            <div id="left-panel-bottom">
-                <h1>account options</h1>
-            </div>
+  </head>
+  <body>
+    <div id="container">
+      <!-- Added container div -->
+      <div id="left-panel">
+        <div id="left-panel-top">
+          <div id="left-panel-top-hide">
+            <p>thing.ai</p>
+            <button id="hide-panel" onclick="hidePanel()"><</button>
+          </div>
+          <div id="left-panel-top-options">
+            <button class="button-4" onclick="createCharacter()"></button>Create</button>
+          </div>
         </div>
-        <div id="main-content">
-            {% block main %}
 
-            {% endblock %}
+        <div id="left-panel-middle">
+          <h1>characters</h1>
+          <h4>chats with options</h4>
+          <h4>everything will be stored in database</h4>
         </div>
+
+        <div id="left-panel-bottom">
+          <h1>account options</h1>
+        </div>
+      </div>
+      <div id="main-content">{% block main %} {% endblock %}</div>
     </div>
-</body>
+  </body>
 </html>
