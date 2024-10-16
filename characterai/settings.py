@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-STATIC_URL = "/sstatic/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]

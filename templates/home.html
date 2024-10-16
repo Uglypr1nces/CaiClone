@@ -1,19 +1,14 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block head %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="{% static 'styles/home/home.css' %}">
-{% endblock %}
-
-{% block main %}
+{% extends 'base.html' %} {% load static %} {% block head %}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home</title>
+<link rel="stylesheet" href="{% static 'styles/home/home.css' %}" />
+{% endblock %} {% block main %}
 <div id="top-options">
-<h1>greeting</h1>
-<h1>search characters</h1>
-<button id="show-panel" onclick="showPanel()"><</button>
+  <h1>greeting</h1>
+  <h1>search characters</h1>
 </div>
 <div id="ai-characters">
-    <h1> uploaded characters</h1>
+  <h1>uploaded characters</h1>
 </div>
 {% endblock %}

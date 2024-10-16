@@ -11,7 +11,6 @@ class page(TemplateView):
     template_name = 'home.html'
 
 def create_page(request):
-    print("opened create page")
     return render(request, 'create.html')
 
 def create_character(request):

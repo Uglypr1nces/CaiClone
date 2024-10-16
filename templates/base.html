@@ -19,11 +19,11 @@
       <div id="left-panel">
         <div id="left-panel-top">
           <div id="left-panel-top-hide">
-            <p>thing.ai</p>
-            <button id="hide-panel" onclick="hidePanel()"><</button>
+            <p id="top-panel-title">thing.ai</p>
+            <button id="hide-panel-button" onclick="hidePanel()"><<</button>
           </div>
           <div id="left-panel-top-options">
-            <button class="button-4" onclick="createCharacter()"></button>Create</button>
+            <button class="button-4" onclick="createCharacter()">Create</button>
           </div>
         </div>
 
@@ -37,6 +37,7 @@
           <h1>account options</h1>
         </div>
       </div>
+      <button id="show-panel-button" onclick="showPanel()">>></button>
       <div id="main-content">{% block main %} {% endblock %}</div>
     </div>
   </body>
