@@ -7,12 +7,23 @@ from time import sleep
 import threading
 import json
 
-class page(TemplateView):
+from .characters.character import *
+
+class PageView(TemplateView):
     template_name = 'home.html'
 
 def create_page(request):
     return render(request, 'create.html')
 
+@csrf_exempt
 def create_character(request):
-    print("in development")
+    character_name = request.POST.get('name')
+    character_description = request.POST.get('description')
+    
+    last_id = get_last_id()
+    character = Character(last_id[0] + 1, character_name, character_description)
+    character.save_character()
+    character.print_database()
+
+    return HttpResponse('Character created')
 

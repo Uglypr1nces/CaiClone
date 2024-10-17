@@ -1,1 +1,31 @@
-<h1>hello bobo</h1>
+{% extends 'base.html' %} {% load static %} {% block head %}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Create</title>
+<link rel="stylesheet" href="{% static 'styles/create/create.css' %}" />
+<script src="{% static 'scripts/create.js' %}"></script>
+{% endblock %} {% block main %}
+<div id="top-section">
+  <h1>Create a character</h1>
+  <p>Fill out the form below to create a new character.</p>
+</div>
+
+<div id="middle-section">
+  <label for="character-name">Character name: </label>
+  <input
+    type="text"
+    id="character-name"
+    placeholder="name Goes Here"
+    required
+  /><br /><br />
+  <label for="character-description">Character description: </label>
+  <input
+    type="text"
+    id="character-description"
+    placeholder="description Goes Here"
+    required
+  /><br /><br />
+
+  <button onclick="createCharacter()">Create Character</button>
+</div>
+{% endblock %}

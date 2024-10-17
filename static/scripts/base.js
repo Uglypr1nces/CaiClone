@@ -31,16 +31,7 @@ function showPanel() {
 }
 
 function createCharacter() {
-  $.ajax({
-    type: "GET",
-    url: "/create_page",
-    success: function (data) {
-      alert("successfull");
-    },
-    failure: function () {
-      alert("failure");
-    },
-  });
+  window.open("create_page", "_blank");
 }
 
 function selectCharacter() {}
