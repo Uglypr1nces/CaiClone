@@ -11,22 +11,15 @@
   <h1>search characters</h1>
 </div>
 <div id="ai-characters">
-  <div class="card">
+  {% for c in characters %}
+  <div class="card mb-3">
     <div class="card-body">
-      <h5 class="card-title">Project 2</h5>
-      <p class="card-text">
-        Welcome to Chatify 🚀 Chatify is an online chatting application designed
-        for Windows users, providing a seamless and intuitive platform for
-        real-time communication. With Chatify, users can connect with friends,
-        colleagues, or family members effortlessly, no matter where they are.
-      </p>
-      <a
-        href="https://github.com/Uglypr1nces/Chatify"
-        class="btn btn-primary"
-        target="_blank"
-        >GitHub Repository</a
-      >
+      <h5 class="card-title">Character ID: {{ c.0 }} - {{ c.1 }}</h5>
+      <!-- c.0 is the ID, c.1 is the name -->
+      <p class="card-text">{{ c.2 }}</p>
+      <!-- c.2 is the description -->
     </div>
   </div>
+  {% endfor %}
 </div>
 {% endblock %}

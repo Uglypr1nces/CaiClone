@@ -28,7 +28,7 @@ function createCharacter() {
       },
       success: function (data) {
         alert("Character created successfully!");
-        window.location.href = "/";
+        window.location.href = "/home";
       },
       error: function () {
         alert("Failed to create character.");

@@ -22,10 +22,12 @@ class Character:
         c = conn.cursor()
         c.execute("SELECT * FROM characters")
         rows = c.fetchall()
+        characters = []
         for row in rows:
-            print(row)
+            characters.append(row)
         c.close()
         conn.close()
+        return characters
     
     def save_character(self):
         conn = sqlite3.connect('characters.db')
@@ -35,6 +37,18 @@ class Character:
         conn.commit()
         c.close()
         conn.close()
+
+        print("Character saved successfully")
+
+    def delete_character(self, id):
+        conn = sqlite3.connect('characters.db')
+        c = conn.cursor()
+        c.execute("DELETE FROM characters WHERE id = ?", (id,))
+        conn.commit()
+        c.close()
+        conn.close()
+
+        print("Character deleted successfully")
 
 
 

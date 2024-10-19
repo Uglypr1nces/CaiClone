@@ -17,13 +17,23 @@ def create_page(request):
 
 @csrf_exempt
 def create_character(request):
-    character_name = request.POST.get('name')
-    character_description = request.POST.get('description')
-    
-    last_id = get_last_id()
-    character = Character(last_id[0] + 1, character_name, character_description)
-    character.save_character()
-    character.print_database()
+    if request.method == "POST":
+        character_name = request.POST.get('name')
+        character_description = request.POST.get('description')
+        
+        last_id = get_last_id()  
+        character = Character(last_id[0] + 1, character_name, character_description)
+        character.save_character()
 
-    return HttpResponse('Character created')
+        return HttpResponse("Character created successfully")
+    return HttpResponse("Invalid request method", status=405)
+
+
+@csrf_exempt
+def view_characters(request):
+    character = Character(get_last_id()[0] + 1, "temp_name", "temp_description")
+    character.delete_character(get_last_id()[0] + 1)
+    characters = character.print_database() 
+    print(characters)
+    return render(request, 'home.html', {'characters': characters})
 

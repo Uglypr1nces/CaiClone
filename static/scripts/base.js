@@ -31,7 +31,7 @@ function showPanel() {
 }
 
 function createCharacter() {
-  window.open("create_page", "_blank");
+  window.location.href = "{% url 'create_page' %}";
 }
 
 function selectCharacter() {}
