@@ -31,6 +31,7 @@ function showPanel() {
 }
 
 function createCharacter() {
+  console.log("redirecting to character creation");
   window.location.href = "{% url 'create_page' %}";
 }
 

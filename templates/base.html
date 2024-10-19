@@ -6,11 +6,6 @@
     <link rel="stylesheet" href="{% static 'styles/elements.css' %}" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'scripts/base.js' %}"></script>
-    <script>
-      window.onload = function () {
-        window.location.href = "{% url 'home' %}";
-      };
-    </script>
     {% block head %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +22,11 @@
             <button id="hide-panel-button" onclick="hidePanel()"><<</button>
           </div>
           <div id="left-panel-top-options">
-            <button class="button-4" onclick="createCharacter()">Create</button>
+            <a href="{% url 'create_page' %}">
+              <button class="button-4" onclick="createCharacter()">
+                Create
+              </button>
+            </a>
           </div>
         </div>
 

@@ -37,3 +37,14 @@ def view_characters(request):
     print(characters)
     return render(request, 'home.html', {'characters': characters})
 
+@csrf_exempt
+def chat(request):
+    if request.method == "POST":
+        character_name = request.POST.get('name')
+        character_description = request.POST.get('description')
+
+        print(character_name)
+        print(character_description)
+        
+        return render(request, 'chat.html', {'name': character_name, 'description': character_description})
+    return HttpResponse("Invalid request method", status=405)

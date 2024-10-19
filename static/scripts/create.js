@@ -21,7 +21,7 @@ function createCharacter() {
 
     $.ajax({
       type: "POST",
-      url: "/create_character",
+      url: "create_character/",
       data: {
         name: character_name,
         description: character_description,

@@ -3,8 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Home</title>
 <link rel="stylesheet" href="{% static 'styles/home/home.css' %}" />
-
 <script src="{%static 'scripts/home.js'%}"></script>
+
 {% endblock %} {% block main %}
 <div id="top-options">
   <h1>greeting</h1>
@@ -14,10 +14,8 @@
   {% for c in characters %}
   <div class="card mb-3">
     <div class="card-body">
-      <h5 class="card-title">Character ID: {{ c.0 }} - {{ c.1 }}</h5>
-      <!-- c.0 is the ID, c.1 is the name -->
+      <h5 class="card-title">{{ c.1 }}</h5>
       <p class="card-text">{{ c.2 }}</p>
-      <!-- c.2 is the description -->
     </div>
   </div>
   {% endfor %}
