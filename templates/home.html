@@ -12,12 +12,14 @@
 </div>
 <div id="ai-characters">
   {% for c in characters %}
-  <div class="card mb-3">
-    <div class="card-body">
-      <h5 class="card-title">{{ c.1 }}</h5>
-      <p class="card-text">{{ c.2 }}</p>
+  <form method="POST" action="/home/chat/">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ c.1 }}</h5>
+        <p class="card-text">{{ c.2 }}</p>
+      </div>
     </div>
-  </div>
+  </form>
   {% endfor %}
 </div>
 {% endblock %}

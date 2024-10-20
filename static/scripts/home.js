@@ -16,13 +16,13 @@ document.addEventListener("click", function () {
 
     $.ajax({
       type: "POST",
-      url: "chat/",
+      url: "/home/chat/",
       data: {
         name: character_name,
         description: character_description,
       },
       success: function (data) {
-        console.log(data);
+        console.log("opened chat with character");
       },
       error: function () {
         alert("Failed to chat with character.");
