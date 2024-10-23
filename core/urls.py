@@ -8,4 +8,5 @@ urlpatterns = [
     path('home/create_page/', views.create_page, name='create_page'),  
     path('home/create_page/create_character/', views.create_character, name='create_character'),
     path('home/chat/', views.chat, name='chat'),
+    path('home/chat/userMessage/', views.userMessage, name='userMessage'),
 ]

@@ -1,15 +1,17 @@
 {% extends 'base.html' %} {% load static %} {% block head %}
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Home</title>
+<title>Chat</title>
 <link rel="stylesheet" href="{% static 'styles/chat/chat.css' %}" />
 <link rel="stylesheet" href="{% static 'styles/elements.css' %}" />
+<script src="{%static 'scripts/chat.js'%}"></script>
 {% endblock %} {% block main %}
 <div id="top-options">
-  <h1>{{character_name}}</h1>
-  <button id="show-panel" onclick="showPanel()"><</button>
+  <h1 id="character-name"></h1>
+  <p id="character-description"></p>
+
+  <input id="user-input" type="text" />
+  <button onclick="sendUserInput()">Send</button>
 </div>
-<div id="">
-  <h1>uploaded characters</h1>
-</div>
+<div id=""></div>
 {% endblock %}

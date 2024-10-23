@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 
+from core.ollama.llama3 import generate_response
+
 from time import sleep
 import threading
 import json
@@ -37,13 +39,14 @@ def view_characters(request):
     print(characters)
     return render(request, 'home.html', {'characters': characters})
 
-@csrf_exempt
 def chat(request):
-    character_name = request.POST.get('name')
-    character_description = request.POST.get('description')
+    return render(request, 'chat.html',)
 
-    print(character_name)
-    print(character_description)
-    
-    return render(request, 'chat.html', {'name': character_name, 'description': character_description})
-
+@csrf_exempt
+def userMessage(request):
+    if request.method == "POST":
+        message = request.POST.get('user_message')
+        response = generate_response(message)
+        print(response)
+        return HttpResponse(response)
+    return HttpResponse("Invalid request method", status=405)

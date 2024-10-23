@@ -11,22 +11,12 @@ document.addEventListener("click", function () {
     character_description =
       character_div[0].getElementsByClassName("card-text")[0].innerText;
 
-    console.log(character_name);
-    console.log(character_description);
-
-    $.ajax({
-      type: "POST",
-      url: "/home/chat/",
-      data: {
-        name: character_name,
-        description: character_description,
-      },
-      success: function (data) {
-        console.log("opened chat with character");
-      },
-      error: function () {
-        alert("Failed to chat with character.");
-      },
-    });
+    if (character_name != "") {
+      localStorage.setItem("character_name", character_name);
+      localStorage.setItem("character_description", character_description);
+      window.location.href = "/home/chat";
+    } else {
+      console.log("No character selected.");
+    }
   }
 });
