@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#character-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+}
+
+#chat-box {
+  width: 100%;
+  min-width: 40%;
+  max-width: 90%;
+  height: 80%;
+  min-height: 60%;
+  max-height: 100%;
+  margin-left: 5%;
+  margin-top: 5%;
+  border-radius: 5px;
+  background-color: rgb(19, 18, 18);
+  z-index: 1;
+}
+
+#user-options {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  z-index: 1;
+}

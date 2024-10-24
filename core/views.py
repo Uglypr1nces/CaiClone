@@ -47,6 +47,5 @@ def userMessage(request):
     if request.method == "POST":
         message = request.POST.get('user_message')
         response = generate_response(message)
-        print(response)
         return HttpResponse(response)
     return HttpResponse("Invalid request method", status=405)
