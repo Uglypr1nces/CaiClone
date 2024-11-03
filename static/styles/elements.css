@@ -15,20 +15,21 @@ body {
 }
 
 .card {
-  background: rgb(46, 41, 41);
+  background: rgb(34, 32, 32);
   border-radius: 30px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
   margin: 10px 5px;
-  transition: 1s;
+  transition: 90ms;
   max-width: 1000px;
   width: calc(33.33% - 20px);
   display: inline-block;
   vertical-align: top;
+  color: white;
 }
 
 .card:hover {
-  box-shadow: 0 0 20px 10px yellow;
+  box-shadow: 0 0 20px 10px rgb(255, 255, 255);
 }
 
 .card img {
@@ -113,4 +114,10 @@ body {
   box-shadow: none;
   outline: none;
   visibility: hidden;
+}
+
+.common-text {
+  font-size: 20px;
+  color: white;
+  width: 60%;
 }

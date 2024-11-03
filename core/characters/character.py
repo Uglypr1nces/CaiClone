@@ -48,6 +48,14 @@ class Character:
         c.close()
         conn.close()
 
+    def clear_all_characters(self):
+        conn = sqlite3.connect('characters.db')
+        c = conn.cursor()
+        c.execute("DELETE FROM characters")
+        conn.commit()
+        c.close()
+        conn.close()
+
         print("Character deleted successfully")
 
 

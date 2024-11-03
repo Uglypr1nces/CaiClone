@@ -9,4 +9,7 @@ urlpatterns = [
     path('home/create_page/create_character/', views.create_character, name='create_character'),
     path('home/chat/', views.chat, name='chat'),
     path('home/chat/userMessage/', views.userMessage, name='userMessage'),
+    path('home/login/', views.login, name='login'),
+    path('home/create_user/', views.create_user, name='create_user'),
+    path('home/verfication/', views.verfication, name='verfication'),
 ]

@@ -35,6 +35,3 @@ function createCharacter() {
   window.location.href = "{% url 'create_page' %}";
 }
 
-function selectCharacter() {}
-
-function loadCharacter() {}
