@@ -1,0 +1,23 @@
+
+DESIGN
+__________________
+
+Make character Pebbels  more consistant
+
+Remove Blue Panels
+
+Change top search bar
+
+More animations to indicate if the user is doing something
+
+
+
+Functionality 
+______________
+
+Fix log in for user
+
+Make a log in for root
+
+Store characters and their message to the user
+
