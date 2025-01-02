@@ -41,7 +41,11 @@ CaiClone is a Django-based web application designed to replicate the core functi
    ```bash
    python manage.py migrate
    ```
-7. Run the development server:
+7. Run ollama server on port 10273:
+   ```bash
+   OLLAMA_HOST=127.0.0.1:10273 ollama serve
+   ```
+8. Run the development server:
    ```bash
    python manage.py runserver
    ```
