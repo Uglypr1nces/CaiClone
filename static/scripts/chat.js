@@ -1,24 +1,38 @@
 let character_name;
 let character_description;
-let chat;
+let waiting_animation;
 
 document.addEventListener("DOMContentLoaded", function () {
   character_name = localStorage.getItem("character_name");
   character_description = localStorage.getItem("character_description");
-  if (character_name == "" || character_description == "") {
+  waiting_animation = document.getElementById("loading_animation");
+  
+  // Check if character details are missing or null
+  if (!character_name || !character_description) {
     alert("No character selected.");
     window.location.href = "/home";
-  } else {
-    document.getElementById("character-name").innerText = character_name;
-    let description = document.createElement("div");
-    description.classList.add("message", "bot-message"); 
-    description.innerText = character_description;
-    document.getElementById("chat-box").appendChild(description);
+    return;
   }
+
+  waiting_animation.style.visibility = "hidden";
+  document.getElementById("character-name").innerText = character_name;
+
+  // Display character description
+  let description = document.createElement("div");
+  description.classList.add("message", "bot-message");
+  description.innerText = character_description;
+  document.getElementById("chat-box").appendChild(description);
 });
 
 function sendUserInput() {
-  let user_input = document.getElementById("input-box").value;
+  let user_input = document.getElementById("input-box").value.trim();
+
+  if (!user_input) {
+    alert("Please enter a message.");
+    return;
+  }
+
+  waiting_animation.style.visibility = "visible";
 
   $.ajax({
     type: "POST",
@@ -30,19 +44,27 @@ function sendUserInput() {
     },
     success: function (data) {
       console.log(data);
+
       let chatBox = document.getElementById("chat-box");
-      let newMessage = document.createElement("div");
-      let receivedMessage = document.createElement("div");
-      newMessage.classList.add("message", "user-message");
-      newMessage.innerText = user_input;
-      receivedMessage.classList.add("message", "bot-message");
-      receivedMessage.innerText = data;
-      chatBox.appendChild(newMessage);
-      chatBox.appendChild(receivedMessage);
-      document.getElementById("chat-box").value = "";
+      let userMessage = document.createElement("div");
+      let botMessage = document.createElement("div");
+
+      userMessage.classList.add("message", "user-message");
+      userMessage.innerText = user_input;
+
+      botMessage.classList.add("message", "bot-message");
+      botMessage.innerText = data;
+
+      chatBox.appendChild(userMessage);
+      chatBox.appendChild(botMessage);
+
+      document.getElementById("input-box").value = ""; // Clear input box
+      waiting_animation.style.visibility = "hidden"; // Hide loading animation
     },
-    error: function () {
-      alert("Failed to send Message.");
+    error: function (xhr, status, error) {
+      console.error("Error:", error);
+      alert("Failed to send message. Please try again.");
+      waiting_animation.style.visibility = "hidden"; // Hide loading animation
     },
   });
 }
