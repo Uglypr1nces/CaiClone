@@ -12,9 +12,7 @@ function createCharacter() {
     return;
   } else {
     character_name = document.getElementById("character-name").value;
-    character_description = document.getElementById(
-      "character-description"
-    ).value;
+    character_description = document.getElementById("character-description").value;
 
     console.log(character_name);
     console.log(character_description);

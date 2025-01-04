@@ -2,7 +2,7 @@
 DESIGN
 __________________
 
-Make character Pebbels  more consistant
+Make character Pebbels  more consistant (done)
 
 Remove Blue Panels
 

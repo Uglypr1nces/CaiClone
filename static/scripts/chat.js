@@ -68,3 +68,12 @@ function sendUserInput() {
     },
   });
 }
+
+document.addEventListener('keyup', (event) => {
+  if (event.key == 'Enter') {
+    sendUserInput();
+  }
+  else if(event.key == 'Escape'){
+    window.location.href = "/home";
+  }
+});

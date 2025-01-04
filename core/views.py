@@ -15,11 +15,27 @@ import threading
 import json
 
 
+#/*-----------------------------------------------------------------------*/
+#/* -Pages                                                                */
+#/*-----------------------------------------------------------------------*/
+
 class PageView(TemplateView):
     template_name = 'home.html'
 
 def create_page(request):
     return render(request, 'create.html')
+
+def chat(request):
+    return render(request, 'chat.html',)
+
+def login(request):
+    return render(request, 'login.html')
+
+
+#/*-----------------------------------------------------------------------*/
+#/* -Create Page                                                          */
+#/*-----------------------------------------------------------------------*/
+
 
 @csrf_exempt
 def create_character(request):
@@ -50,8 +66,12 @@ def view_characters(request):
     print(characters)
     return render(request, 'home.html', {'characters': characters})
 
-def chat(request):
-    return render(request, 'chat.html',)
+
+
+#/*-----------------------------------------------------------------------*/
+#/* -Chat Page                                                            */
+#/*-----------------------------------------------------------------------*/
+
 
 @csrf_exempt
 def userMessage(request):
@@ -65,18 +85,25 @@ def userMessage(request):
         return HttpResponse(response)
     return HttpResponse("Invalid request method", status=405)
 
-def login(request):
-    return render(request, 'login.html')
 
-def verfication(request):
+#/*-----------------------------------------------------------------------*/
+#/* -Login Page                                                           */
+#/*-----------------------------------------------------------------------*/
+
+
+@csrf_exempt
+def verification(request):
     if request.method == "POST":
         password = request.POST.get('password')
         email = request.POST.get('email')
         user = User(password, email)
-        user.save_user()
-        return HttpResponse("User created successfully")
+        if user.verify_user():
+            return HttpResponse("User verified successfully")
+        else:
+            return HttpResponse("User not found")
     return HttpResponse("Invalid request method", status=405)
 
+@csrf_exempt
 def create_user(request):
     if request.method == "POST":
         password = request.POST.get('password')
@@ -85,3 +112,7 @@ def create_user(request):
         user.save_user()
         return HttpResponse("User created successfully")
     return HttpResponse("Invalid request method", status=405)
+
+
+def check_available_users(request):
+    print("Printing users:")
