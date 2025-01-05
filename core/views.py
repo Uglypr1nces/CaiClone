@@ -14,6 +14,9 @@ from time import sleep
 import threading
 import json
 
+current_user_mail = ""
+current_user_password = ""
+
 
 #/*-----------------------------------------------------------------------*/
 #/* -Pages                                                                */
@@ -30,6 +33,27 @@ def chat(request):
 
 def login(request):
     return render(request, 'login.html')
+
+
+#/*-----------------------------------------------------------------------*/
+#/* -Home Page                                                          */
+#/*-----------------------------------------------------------------------*/
+
+
+
+@csrf_exempt
+def view_characters(request):
+    if get_last_id() is None:
+        character = Character(1, "temp_name", "temp_description")
+        character.delete_character(1)
+    else:
+        character = Character(get_last_id()[0] + 1, "temp_name", "temp_description")
+        character.delete_character(get_last_id()[0] + 1)
+    characters = character.print_database() 
+    print(characters)
+    return render(request, 'home.html', {'characters': characters})
+
+
 
 
 #/*-----------------------------------------------------------------------*/
@@ -54,20 +78,6 @@ def create_character(request):
     return HttpResponse("Invalid request method", status=405)
 
 
-@csrf_exempt
-def view_characters(request):
-    if get_last_id() is None:
-        character = Character(1, "temp_name", "temp_description")
-        character.delete_character(1)
-    else:
-        character = Character(get_last_id()[0] + 1, "temp_name", "temp_description")
-        character.delete_character(get_last_id()[0] + 1)
-    characters = character.print_database() 
-    print(characters)
-    return render(request, 'home.html', {'characters': characters})
-
-
-
 #/*-----------------------------------------------------------------------*/
 #/* -Chat Page                                                            */
 #/*-----------------------------------------------------------------------*/
@@ -79,10 +89,17 @@ def userMessage(request):
         message = request.POST.get('user_message')
         character_name = request.POST.get('character_name')
         character_description = request.POST.get('character_description')
-        prompt = get_prompt(message, character_name, character_description)
-        response = generate_response(prompt)
-        print(response)
-        return HttpResponse(response)
+        character_id = request.POST.get('character_id')
+        
+        if current_user_mail == "" and current_user_password == "":
+            return HttpResponse("user is not logged in")
+        else:
+            user = User(current_user_mail,current_user_password)
+            user.add_message(message, character_id)
+            prompt = get_prompt(user.get_character_messages(character_id), character_name, character_description)
+            response = generate_response(prompt)
+            print(response)
+            return HttpResponse(response)
     return HttpResponse("Invalid request method", status=405)
 
 
@@ -98,6 +115,9 @@ def verification(request):
         email = request.POST.get('email')
         user = User(password, email)
         if user.verify_user():
+            current_user_mail = email
+            current_user_password = password
+            print(f"set current mail to {current_user_mail}, and password {current_user_password}")
             return HttpResponse("User verified successfully")
         else:
             return HttpResponse("User not found")

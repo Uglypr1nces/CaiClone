@@ -10,14 +10,46 @@ Change top search bar
 
 More animations to indicate if the user is doing something
 
-
+Redo the create characters page
 
 Functionality 
 ______________
 
-Fix log in for user
+General:
+
+
+
+store databases somewhere else
+
+add encyrption 
+
+check if user is logged in
+
+
+
+Login:
+
+
+Dont let user interact with the website if theyre not logged in
+
+create a sign up page
+
+
+
+Home:
+
+
+Fix log in for user (done)
 
 Make a log in for root
 
 Store characters and their message to the user
+
+
+Chat:
+
+Store messages
+
+Store characters
+
 

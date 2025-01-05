@@ -63,3 +63,50 @@ class User:
             print("All users deleted successfully")
         except sqlite3.Error as e:
             print(f"Error clearing users: {e}")
+
+    def add_message(self, message, id):
+        try:
+            with sqlite3.connect('users.db') as conn:
+                c = conn.cursor()
+                c.execute("""
+                    CREATE TABLE IF NOT EXISTS users (
+                        id TEXT PRIMARY KEY,
+                        message TEXT
+                    )
+                """)
+
+                # Check if the ID already exists
+                c.execute("SELECT message FROM users WHERE id = ?", (id,))
+                result = c.fetchone()
+
+                if result:
+                    # If the ID exists, append the new message to the existing ones
+                    existing_messages = result[0]
+                    updated_messages = f"{existing_messages}|{message}"
+                    c.execute("UPDATE users SET message = ? WHERE id = ?", (updated_messages, id))
+                else:
+                    # If the ID doesn't exist, insert a new record
+                    c.execute("INSERT INTO users (id, message) VALUES (?, ?)", (id, message))
+
+                conn.commit()
+                print("User saved successfully")
+        except sqlite3.Error as e:
+            print(f"Error saving user: {e}")
+
+    def get_character_messages(self, id):
+        try:
+            with sqlite3.connect('users.db') as conn:
+                c = conn.cursor()
+
+                # Check if the ID exists and fetch the message(s)
+                c.execute("SELECT message FROM users WHERE id = ?", (id,))
+                result = c.fetchone()
+
+                if result:
+                    return result[0]  # Return the message(s) associated with the ID
+                else:
+                    return None  # No record found for the given ID
+        except sqlite3.Error as e:
+            print(f"Error fetching messages: {e}")
+            return None  # Return None in case of an error
+

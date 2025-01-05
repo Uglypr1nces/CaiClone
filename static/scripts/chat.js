@@ -1,10 +1,12 @@
 let character_name;
 let character_description;
+let character_id;
 let waiting_animation;
 
 document.addEventListener("DOMContentLoaded", function () {
   character_name = localStorage.getItem("character_name");
   character_description = localStorage.getItem("character_description");
+  character_id = localStorage.getItem("character_id");
   waiting_animation = document.getElementById("loading_animation");
   
   // Check if character details are missing or null
@@ -38,6 +40,7 @@ function sendUserInput() {
     type: "POST",
     url: "userMessage/",
     data: {
+      character_id: character_id,
       character_name: character_name,
       character_description: character_description,
       user_message: user_input,

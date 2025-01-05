@@ -1,5 +1,6 @@
 var email;
 var password;
+var logged_in;
 
 function validate() {
   if(
@@ -30,6 +31,7 @@ function validate() {
           }
           else{
             console.log("user found")
+            logged_in = true
             window.location.href = "/home"
           }
         },
