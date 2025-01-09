@@ -10,6 +10,8 @@ urlpatterns = [
     path('home/chat/', views.chat, name='chat'),
     path('home/chat/userMessage/', views.userMessage, name='userMessage'),
     path('home/login/', views.login, name='login'),
-    path('home/login/create_user/', views.create_user, name='create_user'),
     path('home/login/verification/', views.verification, name='verification'),
+    path('home/signup/', views.signup, name='signup'),
+    path('home/signup/create_user/', views.create_user, name='create_user'),
+
 ]

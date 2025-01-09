@@ -14,9 +14,7 @@ from time import sleep
 import threading
 import json
 
-current_user_mail = ""
-current_user_password = ""
-
+user = User("","")
 
 #/*-----------------------------------------------------------------------*/
 #/* -Pages                                                                */
@@ -33,6 +31,9 @@ def chat(request):
 
 def login(request):
     return render(request, 'login.html')
+
+def signup(request):
+    return render(request, 'signup.html')
 
 
 #/*-----------------------------------------------------------------------*/
@@ -82,7 +83,6 @@ def create_character(request):
 #/* -Chat Page                                                            */
 #/*-----------------------------------------------------------------------*/
 
-
 @csrf_exempt
 def userMessage(request):
     if request.method == "POST":
@@ -91,16 +91,34 @@ def userMessage(request):
         character_description = request.POST.get('character_description')
         character_id = request.POST.get('character_id')
         
-        if current_user_mail == "" and current_user_password == "":
-            return HttpResponse("user is not logged in")
+        # Check if the user is logged in
+        if user.email == "" or user.password == "":
+            return HttpResponse("User is not logged in", status=403)
+
+        # Add the character and the message
+        user.add_character(character_id)
+        user.add_message(character_id, message)  # Corrected argument order
+        
+        # Generate the prompt for the model
+        if user.get_messages_for_character(character_id):
+            prompt = get_prompt(user.get_messages_for_character(character_id), character_name, character_description)
         else:
-            user = User(current_user_mail,current_user_password)
-            user.add_message(message, character_id)
-            prompt = get_prompt(user.get_character_messages(character_id), character_name, character_description)
-            response = generate_response(prompt)
-            print(response)
-            return HttpResponse(response)
+            prompt = get_prompt(message, character_name, character_description)
+
+        # Generate response using the prompt
+        response = generate_response(prompt)
+
+        # Store the generated response as a message for the character
+        user.add_message(character_id, response)
+
+        # Debugging: Print stored messages for this character and database contents
+        print(user.get_messages_for_character(character_id))
+        print(user.print_database())
+
+        return HttpResponse(response)
+
     return HttpResponse("Invalid request method", status=405)
+
 
 
 #/*-----------------------------------------------------------------------*/
@@ -113,26 +131,25 @@ def verification(request):
     if request.method == "POST":
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user = User(password, email)
+        user.update_user(email,password)
         if user.verify_user():
-            current_user_mail = email
-            current_user_password = password
-            print(f"set current mail to {current_user_mail}, and password {current_user_password}")
             return HttpResponse("User verified successfully")
         else:
             return HttpResponse("User not found")
     return HttpResponse("Invalid request method", status=405)
+
+
+#/*-----------------------------------------------------------------------*/
+#/* -Sign Up Page                                                           */
+#/*-----------------------------------------------------------------------*/
+
 
 @csrf_exempt
 def create_user(request):
     if request.method == "POST":
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user = User(password, email)
+        user.update_user(email,password)
         user.save_user()
         return HttpResponse("User created successfully")
     return HttpResponse("Invalid request method", status=405)
-
-
-def check_available_users(request):
-    print("Printing users:")
