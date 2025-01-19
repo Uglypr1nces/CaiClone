@@ -30,9 +30,35 @@ function validate() {
             document.getElementById("password").value = "";
           }
           else{
-            changeUserCreds("Bobby", email, password);
-            console.log("user found");
-            window.location.href = "/home";
+            
+            user_name = localStorage.getItem("user_name");
+            if (user_name === null){
+              $.ajax({
+                type: "POST",
+                url: "get_user_name/",
+                data: {
+                  email: email.value,
+                },
+                success: function (data) {
+                  localStorage.setItem("user_name", data.user_name);
+                  if(changeUserCreds(data.user_name, email.value, password.value)){
+                    window.location.href = "/home/";
+                  }
+                  else{
+                    alert("Failed to change user Credentials.");
+                  }
+                },
+                error: function () {
+                  alert("Failed to verify user.");
+                },
+              });
+              changeUserCreds(user_name, email.value, password.value);
+              window.location.href = "/home/";
+            }
+            else{
+              changeUserCreds(user_name, email.value, password.value);
+              window.location.href = "/home/";
+            }
           }
         },
         error: function () {

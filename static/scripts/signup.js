@@ -9,7 +9,7 @@ function createUser() {
     document.getElementById("email").value === "" ||
     document.getElementById("password").value === ""
   ){
-    alert("Email or Password cant be blank")
+    alert("Fill out everything before proceeding")
   }
   else{
     username = document.getElementById("username");
@@ -32,8 +32,12 @@ function createUser() {
             document.getElementById("password").value = "";
           }
           else{
-            changeUserCreds(username, email, password);
-            window.location.href = "/home";
+            if (changeUserCreds(username, email, password)){
+              window.location.href = "/home";
+            }
+            else{
+              alert("Failed to verify user.");
+            }
           }
         },
         error: function () {

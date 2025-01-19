@@ -4,11 +4,7 @@ __________________
 
 Make character Pebbels  more consistant (done)
 
-Remove Blue Panels
-
-Change top search bar
-
-More animations to indicate if the user is doing something
+Remove Blue Panels (done)
 
 Redo the create characters page
 
@@ -18,22 +14,19 @@ ______________
 General:
 
 
-
 store databases somewhere else
 
 add encyrption 
 
-check if user is logged in
-
+check if user is logged in (done)
 
 
 Login:
 
 
-Dont let user interact with the website if theyre not logged in
+Dont let user interact with the website if theyre not logged in (done)
 
-create a sign up page
-
+create a sign up page (done)
 
 
 Home:
@@ -43,13 +36,9 @@ Fix log in for user (done)
 
 Make a log in for root
 
-Store characters and their message to the user
-
 
 Chat:
 
 Store messages
 
 Store characters
-
-

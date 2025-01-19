@@ -14,7 +14,9 @@ from time import sleep
 import threading
 import json
 
-user = User("","")
+import ast 
+
+user = User("","","")
 
 #/*-----------------------------------------------------------------------*/
 #/* -Pages                                                                */
@@ -97,29 +99,57 @@ def userMessage(request):
 
         # Add the character and the message
         user.add_character(character_id)
-        user.add_message(character_id, message)  # Corrected argument order
+        user.add_message(character_id, message) 
         
-        # Generate the prompt for the model
         if user.get_messages_for_character(character_id):
             prompt = get_prompt(user.get_messages_for_character(character_id), character_name, character_description)
         else:
             prompt = get_prompt(message, character_name, character_description)
-
-        # Generate response using the prompt
         response = generate_response(prompt)
-
-        # Store the generated response as a message for the character
         user.add_message(character_id, response)
-
-        # Debugging: Print stored messages for this character and database contents
-        print(user.get_messages_for_character(character_id))
-        print(user.print_database())
 
         return HttpResponse(response)
 
     return HttpResponse("Invalid request method", status=405)
 
+@csrf_exempt
+def get_user_messages(request):
+    if request.method == "POST":
+        print("getting user messages...")
+        character_id = request.POST.get('character_id')
+        
+        messages = user.get_messages_for_character(character_id)
 
+        try:
+        # Separate user messages
+            user_messages = [msg for i, (msg, _) in enumerate(messages) if i % 2 == 0]
+
+        except:
+            print("could not get user messages")
+            user_messages = []
+        print(user_messages)
+        # Return the user messages as a JSON object
+        return JsonResponse({"user_messages": user_messages})
+    return HttpResponse("Invalid request method", status=405)
+
+@csrf_exempt
+def get_character_messages(request):
+    if request.method == "POST":
+        print("getting character messages...")
+        character_id = request.POST.get('character_id')
+        # Parse the content as a list of tuples
+        messages = user.get_messages_for_character(character_id)
+        # Separate character messages
+        try:
+            character_messages = [msg for i, (msg, _) in enumerate(messages) if i % 2 != 0]
+        except:
+            print("could not get character messages")
+            character_messages = []
+        
+        print(character_messages)
+        # Return the character messages as a JSON object
+        return JsonResponse({"character_messages": character_messages})
+    return HttpResponse("Invalid request method", status=405)
 
 #/*-----------------------------------------------------------------------*/
 #/* -Login Page                                                           */
@@ -131,11 +161,18 @@ def verification(request):
     if request.method == "POST":
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user.update_user(email,password)
+        username = request.POST.get('username')
+        user.update_user(email,password,username)
         if user.verify_user():
             return HttpResponse("User verified successfully")
         else:
             return HttpResponse("User not found")
+    return HttpResponse("Invalid request method", status=405)
+
+@csrf_exempt
+def get_user_name(request):
+    if request.method == "POST":
+        return JsonResponse({"username": user.get_username()})
     return HttpResponse("Invalid request method", status=405)
 
 
@@ -149,7 +186,15 @@ def create_user(request):
     if request.method == "POST":
         password = request.POST.get('password')
         email = request.POST.get('email')
-        user.update_user(email,password)
+        username = request.POST.get('username')
+        user.update_user(email,password,username)
         user.save_user()
         return HttpResponse("User created successfully")
     return HttpResponse("Invalid request method", status=405)
+
+
+@csrf_exempt
+def check_if_logged_in(request):
+    if user.email == "" or user.password == "":
+        return HttpResponse("User is not logged in", status=403)
+    return HttpResponse("User is logged in")

@@ -2,8 +2,7 @@ let character_div;
 
 document.addEventListener("DOMContentLoaded", function () {
   character_div = document.getElementsByClassName("card mb-3");
-  console.log("loaded home");
-  localStorage.clear();
+  setTitle();
 });
 
 document.addEventListener("click", function (event) {
@@ -26,3 +25,13 @@ document.addEventListener("click", function (event) {
     }
   }
 });
+
+
+function setTitle() {
+  if (localStorage.getItem("user_name") == null) {
+    document.getElementById("greeting-title").innerText = "Not logged in";
+  }
+  else{
+  document.getElementById("greeting-title").innerText = "Welcome, " + localStorage.getItem("user_name")
+  }
+}

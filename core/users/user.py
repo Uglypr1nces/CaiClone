@@ -1,13 +1,15 @@
 import sqlite3
 
 class User:
-    def __init__(self, email, password):
+    def __init__(self, email, password, username):
         self.email = email
         self.password = password
+        self.username = username
 
-    def update_user(self, mail, password):
+    def update_user(self, mail, password, username):
         self.email = mail
         self.password = password
+        self.username = username
 
     def print_database(self):
         try:
@@ -25,8 +27,8 @@ class User:
             with sqlite3.connect('users.db') as conn:
                 c = conn.cursor()
                 # Create users table if not exists
-                c.execute("CREATE TABLE IF NOT EXISTS users (email TEXT PRIMARY KEY, password TEXT)")
-                c.execute("INSERT OR IGNORE INTO users (email, password) VALUES (?, ?)", (self.email, self.password))
+                c.execute("CREATE TABLE IF NOT EXISTS users (email TEXT PRIMARY KEY, password TEXT, username TEXT)")
+                c.execute("INSERT OR IGNORE INTO users (email, password, username) VALUES (?, ?, ?)", (self.email, self.password, self.username))
                 conn.commit()
             print("User saved successfully")
         except sqlite3.Error as e:
@@ -129,4 +131,19 @@ class User:
                 return messages if messages else None
         except sqlite3.Error as e:
             print(f"Error fetching messages: {e}")
+            return None
+        
+    def get_username(self):
+        try:
+            with sqlite3.connect('users.db') as conn:
+                c = conn.cursor()
+                c.execute("SELECT username FROM users WHERE email = ?", (self.email,))
+                result = c.fetchone()
+                if result:
+                    return result[0]
+                else:
+                    print("Username not found for the provided email")
+                    return None
+        except sqlite3.Error as e:
+            print(f"Error fetching username: {e}")
             return None
