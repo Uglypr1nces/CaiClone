@@ -5,6 +5,38 @@ class User:
         self.email = email
         self.password = password
         self.username = username
+        self._initialize_database()
+
+    def _initialize_database(self):
+        try:
+            with sqlite3.connect('users.db') as conn:
+                c = conn.cursor()
+                # Create users table if not exists
+                c.execute("CREATE TABLE IF NOT EXISTS users (email TEXT PRIMARY KEY, password TEXT, username TEXT)")
+                # Create characters table if not exists
+                c.execute("""
+                    CREATE TABLE IF NOT EXISTS characters (
+                        user_email TEXT,
+                        character_id TEXT,
+                        PRIMARY KEY (user_email, character_id),
+                        FOREIGN KEY (user_email) REFERENCES users (email)
+                    )
+                """)
+                # Create messages table if not exists
+                c.execute("""
+                    CREATE TABLE IF NOT EXISTS messages (
+                        user_email TEXT,
+                        character_id TEXT,
+                        message TEXT,
+                        timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        PRIMARY KEY (user_email, character_id, timestamp),
+                        FOREIGN KEY (user_email) REFERENCES users (email),
+                        FOREIGN KEY (character_id) REFERENCES characters (character_id)
+                    )
+                """)
+                conn.commit()
+        except sqlite3.Error as e:
+            print(f"Error initializing database: {e}")
 
     def update_user(self, mail, password, username):
         self.email = mail
@@ -133,6 +165,18 @@ class User:
             print(f"Error fetching messages: {e}")
             return None
         
+    def get_characters(self):
+        try:
+            with sqlite3.connect('users.db') as conn:
+                c = conn.cursor()
+                c.execute("SELECT character_id FROM characters WHERE user_email = ?", (self.email,))
+                characters = c.fetchall()
+                return [character[0] for character in characters] if characters else []
+        except sqlite3.Error as e:
+            print(f"Error fetching characters: {e}")
+            return None
+        
+
     def get_username(self):
         try:
             with sqlite3.connect('users.db') as conn:

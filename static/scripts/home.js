@@ -28,10 +28,10 @@ document.addEventListener("click", function (event) {
 
 
 function setTitle() {
-  if (localStorage.getItem("user_name") == null) {
+  if (localStorage.getItem("user_name") == undefined) {
     document.getElementById("greeting-title").innerText = "Not logged in";
   }
   else{
-  document.getElementById("greeting-title").innerText = "Welcome, " + localStorage.getItem("user_name")
+    document.getElementById("greeting-title").innerText = "Welcome, " + localStorage.getItem("user_name")
   }
 }

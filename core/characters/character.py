@@ -10,6 +10,16 @@ def get_last_id():
     conn.close()
     return last_id
 
+def get_character(id):
+    conn = sqlite3.connect('characters.db')
+    c = conn.cursor()
+    c.execute("CREATE TABLE IF NOT EXISTS characters (id INTEGER PRIMARY KEY, name TEXT, description TEXT)")
+    c.execute("SELECT name FROM characters WHERE id = ?", (id,))
+    character = c.fetchone()
+    c.close()
+    conn.close()
+    return character
+
 class Character:
     def __init__(self, id, name, description):
         self.id = id

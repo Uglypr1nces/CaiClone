@@ -11,34 +11,13 @@ Redo the create characters page
 Functionality 
 ______________
 
-General:
-
-
 store databases somewhere else
 
 add encyrption 
 
 check if user is logged in (done)
 
+change language model
 
-Login:
+delete characters and their chats
 
-
-Dont let user interact with the website if theyre not logged in (done)
-
-create a sign up page (done)
-
-
-Home:
-
-
-Fix log in for user (done)
-
-Make a log in for root
-
-
-Chat:
-
-Store messages
-
-Store characters

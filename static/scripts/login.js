@@ -12,10 +12,6 @@ function validate() {
   else{
     email = document.getElementById("email");
     password = document.getElementById("password");
-    
-    console.log(email.value);
-    console.log(password.value);
-  
     $.ajax({
         type: "POST",
         url: "verification/",
@@ -30,35 +26,25 @@ function validate() {
             document.getElementById("password").value = "";
           }
           else{
-            
-            user_name = localStorage.getItem("user_name");
-            if (user_name === null){
-              $.ajax({
-                type: "POST",
-                url: "get_user_name/",
-                data: {
-                  email: email.value,
-                },
-                success: function (data) {
-                  localStorage.setItem("user_name", data.user_name);
-                  if(changeUserCreds(data.user_name, email.value, password.value)){
-                    window.location.href = "/home/";
-                  }
-                  else{
-                    alert("Failed to change user Credentials.");
-                  }
-                },
-                error: function () {
-                  alert("Failed to verify user.");
-                },
-              });
-              changeUserCreds(user_name, email.value, password.value);
-              window.location.href = "/home/";
-            }
-            else{
-              changeUserCreds(user_name, email.value, password.value);
-              window.location.href = "/home/";
-            }
+            $.ajax({
+              type: "POST",
+              url: "get_user_name/",
+              data: {
+                email: email.value,
+              },
+              success: function (data) {
+                console.log(data);
+                localStorage.setItem("user_name", data);
+                if (changeUserCreds(data, email.value, password.value)) {
+                  window.location.href = "/home/";
+                } else {
+                  alert("Failed to change user Credentials.");
+                }
+              },
+              error: function () {
+                alert("Failed to verify user.");
+              },
+            });
           }
         },
         error: function () {

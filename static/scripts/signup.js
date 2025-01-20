@@ -32,7 +32,7 @@ function createUser() {
             document.getElementById("password").value = "";
           }
           else{
-            if (changeUserCreds(username, email, password)){
+            if (changeUserCreds(username.value, email, password)){
               window.location.href = "/home";
             }
             else{

@@ -53,11 +53,19 @@ def view_characters(request):
         character = Character(get_last_id()[0] + 1, "temp_name", "temp_description")
         character.delete_character(get_last_id()[0] + 1)
     characters = character.print_database() 
-    print(characters)
     return render(request, 'home.html', {'characters': characters})
 
-
-
+@csrf_exempt
+def get_characters(request):
+    if request.method == "POST":
+        if user.username == "" or user.password == "" or user.email == "":
+            return HttpResponse("User is not logged in", status=403)
+        else:
+            characters = []
+            for character in user.get_characters():
+                characters.append(get_character(character))
+            return JsonResponse({"characters": characters})
+    return HttpResponse("Invalid request method", status=405)
 
 #/*-----------------------------------------------------------------------*/
 #/* -Create Page                                                          */
@@ -93,7 +101,6 @@ def userMessage(request):
         character_description = request.POST.get('character_description')
         character_id = request.POST.get('character_id')
         
-        # Check if the user is logged in
         if user.email == "" or user.password == "":
             return HttpResponse("User is not logged in", status=403)
 
@@ -172,7 +179,8 @@ def verification(request):
 @csrf_exempt
 def get_user_name(request):
     if request.method == "POST":
-        return JsonResponse({"username": user.get_username()})
+        print(user.get_username())
+        return HttpResponse(user.get_username())
     return HttpResponse("Invalid request method", status=405)
 
 

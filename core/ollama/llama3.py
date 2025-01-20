@@ -6,10 +6,10 @@ from ollama import Client
 
 client = Client()
 
-client.pull("llama3.1")
+client.pull("llama2-uncensored")
 
 def generate_response(message):
-    response = client.chat(model='llama3.1', messages=[
+    response = client.chat(model='llama2-uncensored', messages=[
         {
             'role': 'user',
             'content': message,
