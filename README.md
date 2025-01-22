@@ -14,7 +14,7 @@ CaiClone is a Django-based web application designed to replicate the core functi
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/CaiClone.git
+   git clone https://github.com/Uglypr1nces/CaiClone.git
    ```
 2. Navigate to the project directory:
    ```bash
