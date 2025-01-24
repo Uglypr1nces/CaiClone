@@ -60,10 +60,5 @@ CaiClone is a Django-based web application designed to replicate the core functi
 
 Contributions are welcome! Please fork the repository and create a pull request with your changes.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any inquiries or support, please contact [your email address].
+## Preview
+[![Youtube link](https://img.youtube.com/vi/AqihzD_ox6k/0.jpg)](https://www.youtube.com/watch?v=AqihzD_ox6k)
